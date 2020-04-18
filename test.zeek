@@ -25,6 +25,7 @@ event http_reply(c: connection, version: string, code: count, reason: string)
 	{
 		local a :set[time,count,string];
 		local b :set[string];
+		local d :set[string];
 		
 		httprecrdTable[c$id$orig_h] = a;
 		add httprecrdTable[c$id$orig_h][t1,code,c$http$uri];
@@ -47,6 +48,9 @@ event http_reply(c: connection, version: string, code: count, reason: string)
 				{
 					print fmt("%s is a scanner with %d scan attemps on %d urls",c$id$orig_h,_400counterIn10MinsTable[c$id$orig_h],|urlsetIn10MinsTable[c$id$orig_h]|);
 					mintimeTable[c$id$orig_h]=maxtimeTable[c$id$orig_h];
+					replycounterIn10MinsTable[c$id$orig_h]=0;
+					_400counterIn10MinsTable[c$id$orig_h]=0;
+					urlsetIn10MinsTable[c$id$orig_h]=d;
 				}
 	}
 }
